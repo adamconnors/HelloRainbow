@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the rainbow hat
         mRainbowHat = new RainbowHatConnector();
         mRainbowHat.init();
-
-
         mRainbowHat.makeNoise();
         mRainbowHat.updateDisplay("HLLO");
         mRainbowHat.updateLedStrip(new int[] { Color.BLACK, Color.BLACK, Color.BLACK,
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         } finally {
             if (stream != null) {
-                try { stream.close(); } catch (IOException e) { // }
+                try { stream.close(); } catch (IOException e) { /**/ }
             }
         }
     }
