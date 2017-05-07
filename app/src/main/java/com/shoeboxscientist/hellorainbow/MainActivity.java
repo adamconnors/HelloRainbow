@@ -27,19 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the rainbow hat
         mRainbowHat = new RainbowHatConnector();
-
-        try {
-            mRainbowHat.init();
-        } catch (RuntimeException e) {
-            // This will be a resource already used exception. For some reason even reboots
-            // aren't helping me here. So making sure we really clean up.
-            mRainbowHat.cleanup();
-            mRainbowHat.init();
-        }
+        mRainbowHat.init();
 
 
         mRainbowHat.makeNoise();
-        mRainbowHat.updateDisplay("Adam");
+        mRainbowHat.updateDisplay("HLLO");
         mRainbowHat.updateLedStrip(new int[] { Color.BLACK, Color.BLACK, Color.BLACK,
                 Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK});
 
@@ -79,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         } finally {
             if (stream != null) {
-                try { stream.close(); } catch (IOException e) {}
+                try { stream.close(); } catch (IOException e) { // }
             }
         }
     }
