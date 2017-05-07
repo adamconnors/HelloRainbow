@@ -15,8 +15,10 @@ cd HelloRainbow/
 ./gradlew build
 adb connect Android.local
 adb install app/build/outputs/apk/app-debug.apk
-am start -n com.shoeboxscientist.hellorainbow/com.shoeboxscientist.hellorainbow.MainActivity
+adb shell am start -n com.shoeboxscientist.hellorainbow/com.shoeboxscientist.hellorainbow.MainActivity
 </pre>
+
+(If adb connect Android.local doesn't work try adb connect [raspberry-pi-ip-address]:5555 instead.
 
 Assuming it worked, the rainbow hat will make a pleasant beep and the display will read: HLLO
 
