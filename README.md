@@ -12,6 +12,7 @@ network, etc, etc...
 <pre>
 git clone https://github.com/adamconnors/HelloRainbow.git
 cd HelloRainbow/
+export ANDROID_HOME='[path-to-your-android-sdk]'
 ./gradlew build
 adb connect Android.local
 adb install app/build/outputs/apk/app-debug.apk
