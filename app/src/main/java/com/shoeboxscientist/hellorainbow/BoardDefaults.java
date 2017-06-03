@@ -30,6 +30,7 @@ public final class BoardDefaults {
     private static final String DEVICE_RPI3 = "rpi3";
     private static final String DEVICE_PICO = "imx6ul_pico";
     private static final String DEVICE_VVDN = "imx6ul_iopb";
+    private static final String DEVICE_PICO_IMX7D = "imx7d_pico";
     private static String sBoardVariant = "";
 
     public static String getButtonGpioPin() {
@@ -44,6 +45,8 @@ public final class BoardDefaults {
                 return "BCM21";
             case DEVICE_PICO:
                 return "GPIO4_IO20";
+            case DEVICE_PICO_IMX7D:
+                return "GPIO_174";
             case DEVICE_VVDN:
                 return "GPIO3_IO01";
             default:
@@ -63,6 +66,8 @@ public final class BoardDefaults {
                 return "BCM6";
             case DEVICE_PICO:
                 return "GPIO4_IO21";
+            case DEVICE_PICO_IMX7D:
+                return "GPIO_34";
             case DEVICE_VVDN:
                 return "GPIO3_IO06";
             default:
@@ -82,6 +87,8 @@ public final class BoardDefaults {
                 return "I2C1";
             case DEVICE_PICO:
                 return "I2C2";
+            case DEVICE_PICO_IMX7D:
+                return "I2C1";
             case DEVICE_VVDN:
                 return "I2C4";
             default:
@@ -101,6 +108,8 @@ public final class BoardDefaults {
                 return "SPI0.0";
             case DEVICE_PICO:
                 return "SPI3.0";
+            case DEVICE_PICO_IMX7D:
+                return "SPI3.1";
             case DEVICE_VVDN:
                 return "SPI1.0";
             default:
@@ -120,6 +129,8 @@ public final class BoardDefaults {
                 return "PWM1";
             case DEVICE_PICO:
                 return "PWM7";
+            case DEVICE_PICO_IMX7D:
+                return "PWM2";
             case DEVICE_VVDN:
                 return "PWM3";
             default:
