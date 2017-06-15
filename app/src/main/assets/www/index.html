@@ -48,7 +48,7 @@
             -moz-box-sizing: border-box;
             width: 100%;
             background: #fff;
-            margin-bottom: 4%;
+            margin-bottom: 0%;
             border: 1px solid #ccc;
             padding: 3%;
             color: #555;
@@ -90,27 +90,97 @@
         .form-style-6 input[type="button"]:hover{
             background: #2EBC99;
         }
-    </style>
+
+        .field_set {
+            border-color: #43D1AF;
+            border-style: solid;
+        }
+        .container2 {
+            display: inline-block;
+            *display: inline; /* For IE7 */
+            zoom: 1; /* Trigger hasLayout */
+            width: 100%;
+            text-align: left;
+            border: 0px;
+            overflow: hidden;
+            padding: 5px;
+        }
+        .container3 {
+            display: inline-block;
+            *display: inline; /* For IE7 */
+            text-align: center;
+            width: 30%;
+            margin-right: 5px;
+        }
+        .container4 {
+            display: inline-block;
+            *display: inline; /* For IE7 */
+            text-align: center;
+            width: 30%;
+            border: 1px solid grey;
+            border-radius: 18px;
+            margin-right: 5px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+</style>
     <body>
      <form>
          <div class="form-style-6">
              <h1>Hello Rainbow!</h1>
              <form name="theform">
-                 <input type="text"
-                        name="display"
-                        placeholder="Alphanumeric diplay text"
-                        value="$display"
-                        onkeyup="sendUpdate()"
-                        maxlength="4"/>
-
-                 <h2>Rainbow slider</h2>
-                 <input type="range"
-                        min="-1"
-                        max="8"
-                        name="rainbow"
-                        oninput="sendUpdate()"
-                        onchange="sendUpdate()"
-                        value="$rainbow"/>
+                 <div class="container">
+                     <div class="container2">
+                         <fieldset class="field_set"><legend>LEDs</legend>
+                        <div class="container3">
+                            <input type="checkbox"
+                                name="redled"
+                                value="red"
+                                onchange="sendUpdate()"
+                                $red >
+                            <font color="red">Red</font>
+                        </div>
+                        <div class="container3">
+                            <input type="checkbox"
+                                name="greenled"
+                                value="green"
+                                onchange="sendUpdate()"
+                                $green >
+                            <font color="green">Green</font>
+                         </div>
+                         <div class="container3">
+                             <input type="checkbox"
+                                 name="blueled"
+                                 value="blue"
+                                 onchange="sendUpdate()"
+                                 $blue >
+                             <font color="blue">Blue</font>
+                         </div>
+                         </fieldset>
+                     </div>
+                     <div class="container2">
+                         <fieldset class="field_set"><legend>ALPHA</legend>
+                             <input type="text"
+                                    name="display"
+                                    placeholder="Alphanumeric diplay text"
+                                    value="$display"
+                                    onkeyup="sendUpdate()"
+                                    maxlength="4"/>
+                         </fieldset>
+                     </div>
+                     <div class="container2">
+                         <fieldset class="field_set"><legend>RAINBOW</legend>
+                             <input type="range"
+                                    min="0"
+                                    max="7"
+                                    name="rainbow"
+                                    oninput="sendUpdate()"
+                                    onchange="sendUpdate()"
+                                    value="$rainbow"/>
+                         </fieldset>
+                     </div>
+                 </div>
+                 <br>
                  <input type="submit" value="Set" />
              </form>
          </div>
@@ -122,6 +192,15 @@
           theform = document.forms[0];
           var params = "?display=" + theform.display.value
                 + "&rainbow=" + theform.rainbow.value;
+          if (theform.redled.checked == true) {
+                params += "&redled=red"
+          }
+          if (theform.greenled.checked == true) {
+                params += "&greenled=green"
+          }
+          if (theform.blueled.checked == true) {
+                params += "&blueled=blue"
+          }
           console.log("sending request: " + params);
 
           var xhr = new XMLHttpRequest();

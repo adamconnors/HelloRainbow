@@ -20,7 +20,7 @@ public class RainbowHatConnector {
 
     private AlphanumericDisplay mDisplay;
     private Apa102 mLedstrip;
-    private Gpio mLed;
+    private Gpio mLed, mGreenLed, mBlueLed;
 
     private Speaker mSpeaker;
     private ValueAnimator mSpeakerAnimator;
@@ -49,7 +49,7 @@ public class RainbowHatConnector {
             mLedstrip = null; // Led strip is optional.
         }
 
-        // GPIO led
+        // GPIO leds
         try {
             PeripheralManagerService pioService = new PeripheralManagerService();
             mLed = pioService.openGpio(BoardDefaults.getLedGpioPin());
@@ -58,6 +58,26 @@ public class RainbowHatConnector {
             mLed.setActiveType(Gpio.ACTIVE_HIGH);
         } catch (IOException e) {
             throw new RuntimeException("Error initializing led", e);
+        }
+
+        try {
+            PeripheralManagerService pioService = new PeripheralManagerService();
+            mGreenLed = pioService.openGpio(BoardDefaults.getGreenGpioPin());
+            mGreenLed.setEdgeTriggerType(Gpio.EDGE_NONE);
+            mGreenLed.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
+            mGreenLed.setActiveType(Gpio.ACTIVE_HIGH);
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing green led", e);
+        }
+
+        try {
+            PeripheralManagerService pioService = new PeripheralManagerService();
+            mBlueLed = pioService.openGpio(BoardDefaults.getBlueGpioPin());
+            mBlueLed.setEdgeTriggerType(Gpio.EDGE_NONE);
+            mBlueLed.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
+            mBlueLed.setActiveType(Gpio.ACTIVE_HIGH);
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing blue led", e);
         }
 
         // PWM speaker
@@ -73,27 +93,27 @@ public class RainbowHatConnector {
         mSpeakerAnimator.setRepeatCount(5);
         mSpeakerAnimator.setInterpolator(new LinearInterpolator());
         mSpeakerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    try {
-                        float v = (float) animation.getAnimatedValue();
-                        mSpeaker.play(v);
-                    } catch (IOException e) {
-                        throw new RuntimeException("Error sliding speaker", e);
-                    }
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                try {
+                    float v = (float) animation.getAnimatedValue();
+                    mSpeaker.play(v);
+                } catch (IOException e) {
+                    throw new RuntimeException("Error sliding speaker", e);
                 }
-            });
+            }
+        });
 
         mSpeakerAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    try {
-                        mSpeaker.stop();
-                    } catch (IOException e) {
-                        throw new RuntimeException("Error sliding speaker", e);
-                    }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                try {
+                    mSpeaker.stop();
+                } catch (IOException e) {
+                    throw new RuntimeException("Error sliding speaker", e);
                 }
-            });
+            }
+        });
     }
 
     public void cleanup() {
@@ -167,7 +187,23 @@ public class RainbowHatConnector {
         try {
             mLed.setValue(on);
         } catch (IOException e) {
-            Log.e(TAG, "Error setting ledstrip", e);
+            Log.e(TAG, "Error setting led", e);
+        }
+    }
+
+    public void setGreenLED(boolean on) {
+        try {
+            mGreenLed.setValue(on);
+        } catch (IOException e) {
+            Log.e(TAG, "Error setting green led", e);
+        }
+    }
+
+    public void setBlueLED(boolean on) {
+        try {
+            mBlueLed.setValue(on);
+        } catch (IOException e) {
+            Log.e(TAG, "Error setting blue led", e);
         }
     }
 }

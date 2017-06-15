@@ -106,10 +106,39 @@ public class MainActivity extends AppCompatActivity {
 
         if (params.containsKey("display")) {
             mRainbowHat.updateDisplay(params.get("display"));
-        }
 
-        if (params.containsKey("rainbow")) {
-            mRainbowHat.updateLedStrip(getColours(Integer.parseInt(params.get("rainbow"))));
+            if (params.containsKey("rainbow")) {
+                mRainbowHat.updateLedStrip(getColours(Integer.parseInt(params.get("rainbow"))));
+                // Do It Twice since something w/ Android Things does not work consistently
+                mRainbowHat.updateLedStrip(getColours(Integer.parseInt(params.get("rainbow"))));
+            }
+
+            if (params.containsKey("redled")) {
+                mRainbowHat.setLED(true);
+                resp = resp.replace("$red", "checked");
+            }
+            else {
+                mRainbowHat.setLED(false);
+                resp = resp.replace("$red", "");
+            }
+
+            if (params.containsKey("greenled")) {
+                mRainbowHat.setGreenLED(true);
+                resp = resp.replace("$green", "checked");
+            }
+            else {
+                mRainbowHat.setGreenLED(false);
+                resp = resp.replace("$green", "");
+            }
+
+            if (params.containsKey("blueled")) {
+                mRainbowHat.setBlueLED(true);
+                resp = resp.replace("$blue", "checked");
+            }
+            else {
+                mRainbowHat.setBlueLED(false);
+                resp = resp.replace("$blue", "");
+            }
         }
 
         return resp;
@@ -124,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             int ri = mRainbow.length - 1 - i;
             colors[ri] = mRainbow[ri];
         }
+
         return colors;
     }
 
